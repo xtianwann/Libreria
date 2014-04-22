@@ -1,9 +1,8 @@
 package Excepciones.Cola;
 
 /**
- *
- * @author Juan G. PÃ©rez Leo
- * @author Cristian MarÃ­n Honor
+ * @author Juan G. Pérez Leo
+ * @author Cristian Marín Honor
  */
 public class ExcepcionColaLlena extends Exception{
 

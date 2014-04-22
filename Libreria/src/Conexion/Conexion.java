@@ -12,8 +12,9 @@ import java.util.logging.Logger;
 
 /**
  * Permite establecer conexiones entre el servidor y los clientes
- * 
- * @author Juan G. P茅rez Leo Cristian Mar铆n Honor
+ *
+ * @author Juan G. P閞ez Leo
+ * @author Cristian Mar韓 Honor
  */
 public class Conexion {
 
@@ -22,7 +23,7 @@ public class Conexion {
     private BufferedReader lector;
 
     /**
-     * Crea una conexi贸n cliente - servidor
+     * Crea una conexi髇 cliente - servidor
      * 
      * @param host ip del servidor
      * @param puerto puerto de escucha del servidor
@@ -39,9 +40,9 @@ public class Conexion {
     }
 
     /**
-     * Crea una conexi贸n cliente - servidor
+     * Crea una conexi髇 cliente - servidor
      * 
-     * @param conexionClienteServidor socket de conexi贸n cliente - servidor
+     * @param conexionClienteServidor socket de conexi髇 cliente - servidor
      */
     public Conexion(Socket conexionClienteServidor) {
         this.conexionClienteServidor = conexionClienteServidor;
@@ -64,9 +65,9 @@ public class Conexion {
     }
 
     /**
-     * Cierra los flujos de datos y la conexi贸n
+     * Cierra los flujos de datos y la conexi髇
      * 
-     * @throws IOException en caso de no poder realizar la operaci贸n de cierre
+     * @throws IOException en caso de no poder realizar la operaci髇 de cierre
      */
     public void cerrarConexion() throws IOException {
         this.flujoEscritor.close();
@@ -77,7 +78,7 @@ public class Conexion {
     /**
      * Lee un mensaje del flujo de datos
      * 
-     * @return mensaje le铆do del flujo de datos
+     * @return mensaje le韉o del flujo de datos
      */
     public String leerMensaje() {
         String mensaje = "";

@@ -9,8 +9,8 @@ import java.util.Calendar;
 import java.util.concurrent.TimeoutException;
 
 /**
- * @author Juan G. PÃ©rez Leo
- * @author Cristian MarÃ­n Honor
+ * @author Juan G. Pérez Leo
+ * @author Cristian Marín Honor
  */
 public class ColaSincronizadaSocket {
     
@@ -48,7 +48,7 @@ public class ColaSincronizadaSocket {
         long tiempoLimite = ahora.getTimeInMillis() + this.tiempoAgotado;
         
         if(listaSocket.isEmpty())
-            throw new ExcepcionColaVacia("La cola estÃ¡ vacÃ­a");
+            throw new ExcepcionColaVacia("La cola está vacía");
         while(isOcupado()){
             if(tiempoAgotado > ahora.getTimeInMillis()){
                 throw new TimeoutException("Tiempo excedido para retirar un socket de la cola");
@@ -74,12 +74,12 @@ public class ColaSincronizadaSocket {
             throw new ExcepcionColaLlena("La cola estÃ¡ llena");
         while(isOcupado()){
             if(tiempoAgotado > ahora.getTimeInMillis())
-                throw new TimeoutException("Tiempo excedido para aÃ±adir un socket a la cola");
+                throw new TimeoutException("Tiempo excedido para añadir un socket a la cola");
         }
         ocupado = true;
         if(!listaSocket.add(socket)){
             ocupado = false;
-            throw new ExcepcionInesperada("No se ha podido aÃ±adir el socket a la cola aunque estaba libre");
+            throw new ExcepcionInesperada("No se ha podido añadir el socket a la cola aunque estaba libre");
         }
         ocupado = false;
     }
