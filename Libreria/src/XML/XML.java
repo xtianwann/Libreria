@@ -22,10 +22,10 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
- * Esta clase abstracta proporciona m√©todos gen√©ricos para poder trabajar con
+ * Esta clase abstracta proporciona mÈtodos genÈricos para poder trabajar con
  * ficheros XML.
  *
- * @author Juan G. P√©rez Leo
+ * @author Juan G. PÈrez Leo
  */
 public abstract class XML {
 
@@ -43,9 +43,9 @@ public abstract class XML {
     }
 
     /**
-     * Devuelve el √°rbol DOM generado
+     * Devuelve el ·rbol DOM generado
      *
-     * @return √°rbol DOM generado
+     * @return ·rbol DOM generado
      */
     public Document getDOM() {
         return document;
@@ -56,7 +56,7 @@ public abstract class XML {
      *
      * @param nombre nombre de la etiqueta
      * @param contenido contenido de la etiqueta
-     * @param nodoPadre nodo del que es descendiente, null si es el nodo ra√≠z
+     * @param nodoPadre nodo del que es descendiente, null si es el nodo raÌz
      */
     protected void addNodo(String nombre, String contenido, String nodoPadre) {
         Element element = document.createElement(nombre);
@@ -79,7 +79,7 @@ public abstract class XML {
      * @param nombreAtributo array con los nombres de los atributos que va a recibir
      * @param valorAtributo array con los valores de los atributos que va a recibir
      * @param contenido contenido de la etiqueta
-     * @param nodoPadre nodo del que es descendiente, null si es el nodo ra√≠z
+     * @param nodoPadre nodo del que es descendiente, null si es el nodo raÌz
      */
     protected void addNodoConAtributos(String nombre, String[] nombreAtributo, String[] valorAtributo, String contenido, String nodoPadre) {
         Element element = document.createElement(nombre);
@@ -105,7 +105,7 @@ public abstract class XML {
      *
      * @param input Cadena origen.
      * @return Cadena con la suma resumen SHA1.
-     * @throws NoSuchAlgorithmException No est√° el m√©todo que hace la suma
+     * @throws NoSuchAlgorithmException No est· el mÈtodo que hace la suma
      * resumen.
      */
     protected String sha1(String input) throws NoSuchAlgorithmException {
@@ -139,10 +139,10 @@ public abstract class XML {
     }
 
     /**
-     * Transforma la informaci√≥n de un xml en una cadena de texto
+     * Transforma la informaciÛn de un xml en una cadena de texto
      *
-     * @param doc Objeto de la clase Document que ser√° convertido a cadena
-     * @return cadena que contiene toda la informaci√≥n del xml
+     * @param doc Objeto de la clase Document que ser· convertido a cadena
+     * @return cadena que contiene toda la informaciÛn del xml
      */
     public String xmlToString(Document doc) {
         String devolver = "";
@@ -163,7 +163,7 @@ public abstract class XML {
     }
 
     /**
-     * Transforma una cadena (con informaci√≥n v√°lida) a xml
+     * Transforma una cadena (con informaciÛn v·lida) a xml
      *
      * @param cadena cadena a convertir en xml
      * @return objeto de la clase Document
