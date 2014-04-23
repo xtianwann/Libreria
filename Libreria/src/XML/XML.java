@@ -26,6 +26,7 @@ import org.xml.sax.SAXException;
  * ficheros XML.
  *
  * @author Juan G. Pérez Leo
+ * @author Cristian Marín Honor
  */
 public abstract class XML {
 
