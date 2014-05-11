@@ -146,7 +146,14 @@ public class Conexion {
 
 			}
 		}
-
+	}
+	
+	public static boolean hacerPing(String ip){
+		boolean retorno = false;
+		InetSocketAddress host = new InetSocketAddress(ip, 27000);
+		retorno = !host.isUnresolved();
+		
+		return retorno;
 	}
 
 }
