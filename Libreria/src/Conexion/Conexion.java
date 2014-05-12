@@ -37,24 +37,15 @@ public class Conexion {
 	 * @throws IOException
 	 *             en caso de no poder abrir el flujo de datos
 	 */
-	public Conexion(String host, int puerto) {
+	public Conexion(String host, int puerto) throws IOException,
+			NullPointerException {
 
-		try {
-			InetAddress addr = InetAddress.getByName(host);
-			SocketAddress sockaddr = new InetSocketAddress(addr,puerto);
-			this.conexionClienteServidor = new Socket();
-			this.conexionClienteServidor.connect(sockaddr, 3000);
-		} catch (Exception e) {
-
-		} 
+		InetAddress addr = InetAddress.getByName(host);
+		SocketAddress sockaddr = new InetSocketAddress(addr, puerto);
+		this.conexionClienteServidor = new Socket();
+		this.conexionClienteServidor.connect(sockaddr, 2700);
 		if (conexionClienteServidor != null) {
-			try {
-				abrirFlujo();
-			} catch (IOException e) {
-
-			} catch (NullPointerException e) {
-
-			}
+			abrirFlujo();
 		}
 	}
 
@@ -69,14 +60,9 @@ public class Conexion {
 	 * @param conexionClienteServidor
 	 *            socket de conexión cliente - servidor
 	 */
-	public Conexion(Socket conexionClienteServidor) {
+	public Conexion(Socket conexionClienteServidor) throws IOException {
 		this.conexionClienteServidor = conexionClienteServidor;
-		try {
-			abrirFlujo();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		abrirFlujo();
 	}
 
 	private void abrirFlujo() throws IOException, NullPointerException {
@@ -94,14 +80,10 @@ public class Conexion {
 	 * @throws IOException
 	 *             en caso de no poder realizar la operación de cierre
 	 */
-	public void cerrarConexion() throws IOException {
-		try {
+	public void cerrarConexion() throws IOException, NullPointerException {
 		this.flujoEscritor.close();
 		this.lector.close();
 		this.conexionClienteServidor.close();
-		} catch (NullPointerException e){
-			
-		}
 	}
 
 	/**
@@ -109,20 +91,14 @@ public class Conexion {
 	 * 
 	 * @return mensaje leído del flujo de datos
 	 */
-	public String leerMensaje() {
+	public String leerMensaje() throws IOException, NullPointerException {
 		if (conexionClienteServidor != null) {
 			String mensaje = "";
 			String linea = "";
-			try {
-				if (lector.ready()) {
-					if ((linea = lector.readLine()) != null) {
-						mensaje += linea;
-					}
+			if (lector.ready()) {
+				if ((linea = lector.readLine()) != null) {
+					mensaje += linea;
 				}
-			} catch (NullPointerException ex) {
-				return null;
-			} catch (IOException ex) {
-
 			}
 			return mensaje;
 		} else {
@@ -137,26 +113,20 @@ public class Conexion {
 	 * @param mensaje
 	 *            String a enviar
 	 */
-	public void escribirMensaje(String mensaje) {
+	public void escribirMensaje(String mensaje) throws IOException,
+			NullPointerException {
 		if (conexionClienteServidor != null) {
-			try {
-				byte[] mensajeBytes = (mensaje + "\n").getBytes("UTF-8");
-				flujoEscritor.write(mensajeBytes);
-				flujoEscritor.flush();
-			} catch (IOException ex) {
-
-
-			} catch (NullPointerException ex) {
-
-			}
+			byte[] mensajeBytes = (mensaje + "\n").getBytes("UTF-8");
+			flujoEscritor.write(mensajeBytes);
+			flujoEscritor.flush();
 		}
 	}
-	
-	public static boolean hacerPing(String ip){
+
+	public static boolean hacerPing(String ip) {
 		boolean retorno = false;
 		InetSocketAddress host = new InetSocketAddress(ip, 27000);
 		retorno = !host.isUnresolved();
-		
+
 		return retorno;
 	}
 
