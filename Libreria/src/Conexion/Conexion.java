@@ -95,9 +95,13 @@ public class Conexion {
 	 *             en caso de no poder realizar la operación de cierre
 	 */
 	public void cerrarConexion() throws IOException {
+		try {
 		this.flujoEscritor.close();
 		this.lector.close();
 		this.conexionClienteServidor.close();
+		} catch (NullPointerException e){
+			
+		}
 	}
 
 	/**
