@@ -49,7 +49,7 @@ public class Conexion {
 		}
 	}
 
-	public Conexion(Inet4Address ip, int puerto) throws IOException {
+	public Conexion(Inet4Address ip, int puerto) throws IOException,NullPointerException {
 		this.conexionClienteServidor = new Socket(ip, puerto);
 		abrirFlujo();
 	}
@@ -60,8 +60,9 @@ public class Conexion {
 	 * @param conexionClienteServidor
 	 *            socket de conexión cliente - servidor
 	 */
-	public Conexion(Socket conexionClienteServidor) throws IOException {
+	public Conexion(Socket conexionClienteServidor) throws IOException,NullPointerException {
 		this.conexionClienteServidor = conexionClienteServidor;
+		System.out.println("Constructor "+conexionClienteServidor.getInetAddress()+" "+conexionClienteServidor.getPort());
 		abrirFlujo();
 	}
 
@@ -115,11 +116,9 @@ public class Conexion {
 	 */
 	public void escribirMensaje(String mensaje) throws IOException,
 			NullPointerException {
-		if (conexionClienteServidor != null) {
 			byte[] mensajeBytes = (mensaje + "\n").getBytes("UTF-8");
 			flujoEscritor.write(mensajeBytes);
 			flujoEscritor.flush();
-		}
 	}
 
 	public static boolean hacerPing(String ip) {
