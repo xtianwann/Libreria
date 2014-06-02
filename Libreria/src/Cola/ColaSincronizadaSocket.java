@@ -17,24 +17,24 @@ public class ColaSincronizadaSocket {
     private volatile ArrayList<Socket> listaSocket;
     private boolean ocupado;
     private int maxSize;
-    private int tiempoAgotado;
+    private int intentos;
     
     public ColaSincronizadaSocket(){
         inicializar();
         this.maxSize = 0;
-        this.tiempoAgotado = 10000;
+        this.intentos = 6;
     }
     
     public ColaSincronizadaSocket(int maxSize){
         inicializar();
         this.maxSize = maxSize;
-        this.tiempoAgotado = 10000;
+        this.intentos = 6;
     }
     
     public ColaSincronizadaSocket(int maxSize, int tiempoAgotado){
         inicializar();
         this.maxSize = maxSize;
-        this.tiempoAgotado = tiempoAgotado;
+        this.intentos = 6;
     }
     
     private void inicializar(){
@@ -44,15 +44,20 @@ public class ColaSincronizadaSocket {
     
     public Socket getSocket() throws TimeoutException, ExcepcionColaVacia, ExcepcionInesperada{
         Socket socket = null;
-        Calendar ahora = Calendar.getInstance();
-        long tiempoLimite = ahora.getTimeInMillis() + this.tiempoAgotado;
-        
+        int contador = 0;
         if(listaSocket.isEmpty())
             throw new ExcepcionColaVacia("La cola está vacía");
         while(isOcupado()){
-            if(tiempoAgotado > ahora.getTimeInMillis()){
+            if(contador > intentos){
                 throw new TimeoutException("Tiempo excedido para retirar un socket de la cola");
             }
+            contador++;
+            try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
         ocupado = true;
         try{
@@ -68,13 +73,20 @@ public class ColaSincronizadaSocket {
     
     /* AÃ±ade un socket a la cola */
     public void addSocket(Socket socket) throws ExcepcionColaLlena, TimeoutException, ExcepcionInesperada{
-        Calendar ahora = Calendar.getInstance();
-        long tiempoLimite = ahora.getTimeInMillis() + this.tiempoAgotado;
+        int contador = 0;
         if(isListaLimitada() && listaSocket.size() > maxSize)
             throw new ExcepcionColaLlena("La cola estÃ¡ llena");
         while(isOcupado()){
-            if(tiempoAgotado > ahora.getTimeInMillis())
-                throw new TimeoutException("Tiempo excedido para añadir un socket a la cola");
+            if(contador > intentos){
+                throw new TimeoutException("Tiempo excedido para retirar un socket de la cola");
+            }
+            contador++;
+            try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
         ocupado = true;
         if(!listaSocket.add(socket)){
@@ -109,12 +121,12 @@ public class ColaSincronizadaSocket {
         this.maxSize = maxSize;
     }
 
-    public int getTiempoAgotado() {
-        return tiempoAgotado;
+    public int getIntentos() {
+        return intentos;
     }
 
-    public void setTiempoAgotado(int tiempoAgotado) {
-        this.tiempoAgotado = tiempoAgotado;
+    public void setIntentos(int intentos) {
+        this.intentos = intentos;
     }
     
     public boolean isListaLimitada(){
