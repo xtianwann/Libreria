@@ -32,6 +32,9 @@ public abstract class XML {
 
     protected Document document;
 
+    /**
+     * Inicializa la cabecera de los documentos XML y añade un nodo raíz
+     */
     protected void init() {
         try {
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -46,7 +49,7 @@ public abstract class XML {
     /**
      * Devuelve el árbol DOM generado
      *
-     * @return árbol DOM generado
+     * @return [Document] árbol DOM generado
      */
     public Document getDOM() {
         return document;
@@ -55,9 +58,9 @@ public abstract class XML {
     /**
      * Agrega un nodo al documento XML
      *
-     * @param nombre nombre de la etiqueta
-     * @param contenido contenido de la etiqueta
-     * @param nodoPadre nodo del que es descendiente, null si es el nodo raíz
+     * @param nombre [String] nombre de la etiqueta
+     * @param contenido [String] contenido de la etiqueta
+     * @param nodoPadre [String] nodo del que es descendiente, null si es el nodo raíz
      */
     protected void addNodo(String nombre, String contenido, String nodoPadre) {
         Element element = document.createElement(nombre);
@@ -76,11 +79,11 @@ public abstract class XML {
     /**
      * Agrega un nodo con atributos al documento XML
      * 
-     * @param nombre nombre de la etiqueta
-     * @param nombreAtributo array con los nombres de los atributos que va a recibir
-     * @param valorAtributo array con los valores de los atributos que va a recibir
-     * @param contenido contenido de la etiqueta
-     * @param nodoPadre nodo del que es descendiente, null si es el nodo raíz
+     * @param nombre [String] nombre de la etiqueta
+     * @param nombreAtributo [String[ ]] array con los nombres de los atributos que va a recibir
+     * @param valorAtributo [String[ ]] array con los valores de los atributos que va a recibir
+     * @param contenido [String] contenido de la etiqueta
+     * @param nodoPadre [String] nodo del que es descendiente, null si es el nodo raíz
      */
     protected void addNodoConAtributos(String nombre, String[] nombreAtributo, String[] valorAtributo, String contenido, String nodoPadre) {
         Element element = document.createElement(nombre);
@@ -104,10 +107,9 @@ public abstract class XML {
     /**
      * Realiza una suma resumen con el algoritmo SHA1.
      *
-     * @param input Cadena origen.
-     * @return Cadena con la suma resumen SHA1.
-     * @throws NoSuchAlgorithmException No está el método que hace la suma
-     * resumen.
+     * @param input [String] cadena origen.
+     * @return [String] cadena con la suma resumen SHA1.
+     * @throws NoSuchAlgorithmException No está el método que hace la suma resumen.
      */
     protected String sha1(String input) throws NoSuchAlgorithmException {
         MessageDigest mDigest = MessageDigest.getInstance("SHA1");
@@ -122,8 +124,8 @@ public abstract class XML {
     /**
      * Devuelve el contenido de una etiqueta
      *
-     * @param etiqueta etiqueta de la que queremos obtener el valor
-     * @return cadena de texto con el valor de la etiqueta
+     * @param etiqueta [String] etiqueta de la que queremos obtener el valor
+     * @return [String] cadena de texto con el valor de la etiqueta
      */
     public String getContenido(String etiqueta) {
         return document.getElementsByTagName(etiqueta).item(0).getChildNodes().item(0).getNodeValue();
@@ -132,8 +134,8 @@ public abstract class XML {
     /**
      * Si el contenido de una etiqueta es un entero lo recibimos como tal
      *
-     * @param etiqueta etiqueta de la que queremos obtener el valor
-     * @return contenido de la etiqueta como un entero
+     * @param etiqueta [String] etiqueta de la que queremos obtener el valor
+     * @return contenido [int] contenido de la etiqueta como un entero
      */
     public int getContenidoEntero(String etiqueta) {
         return Integer.parseInt(getContenido(etiqueta));
@@ -142,8 +144,8 @@ public abstract class XML {
     /**
      * Transforma la información de un xml en una cadena de texto
      *
-     * @param doc Objeto de la clase Document que será convertido a cadena
-     * @return cadena que contiene toda la información del xml
+     * @param doc [Document] objeto de la clase Document que será convertido a cadena
+     * @return [String] cadena que contiene toda la información del xml
      */
     public String xmlToString(Document doc) {
         String devolver = "";
@@ -155,7 +157,6 @@ public abstract class XML {
             StringWriter stringWriter = new StringWriter();
             transformer.transform(new DOMSource(doc), new StreamResult(stringWriter));
             devolver = stringWriter.getBuffer().toString();
-            //System.out.println(devolver);
         } catch (TransformerException e) {
             e.printStackTrace();
         }
@@ -166,8 +167,8 @@ public abstract class XML {
     /**
      * Transforma una cadena (con información válida) a xml
      *
-     * @param cadena cadena a convertir en xml
-     * @return objeto de la clase Document
+     * @param cadena [String] cadena a convertir en xml
+     * @return [Document] objeto de la clase Document
      */
     public static Document stringToXml(String cadena) {
         String aux;
